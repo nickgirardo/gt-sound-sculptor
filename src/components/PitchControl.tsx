@@ -36,25 +36,28 @@ export const PitchControl = ({ count }: Props): ReactElement => {
 
   return (
     <div className="control pitch-control">
-      {values.map((v, ix) => (
-        <div className="control-unit">
-          <Slider
-            key={ix}
-            value={v}
-            setValue={handleValueUpdate(ix)}
-            possibleValues={128}
-            pxPerValue={1}
-          />
-          <input
-            value={v}
-            onChange={(ev) => handleValueUpdate(ix)(Number(ev.target.value))}
-          />
-          <input
-            value={midiToNote(v)}
-            onChange={(ev) => tryUpdateNote(ix, ev.target.value)}
-          />
-        </div>
-      ))}
+      <div className="label">Pitch</div>
+      <div className="control-units">
+        {values.map((v, ix) => (
+          <div className="control-unit">
+            <Slider
+              key={ix}
+              value={v}
+              setValue={handleValueUpdate(ix)}
+              possibleValues={128}
+              pxPerValue={1}
+            />
+            <input
+              value={v}
+              onChange={(ev) => handleValueUpdate(ix)(Number(ev.target.value))}
+            />
+            <input
+              value={midiToNote(v)}
+              onChange={(ev) => tryUpdateNote(ix, ev.target.value)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

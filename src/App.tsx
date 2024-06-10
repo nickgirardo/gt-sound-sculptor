@@ -21,20 +21,32 @@ function App() {
       </div>
       <div className="main-controls">
         <div id="op1" className="op">
-          <AmpControl count={count} />
-          <PitchControl count={count} />
+          <div className="label">OP1</div>
+          <div className="controls">
+            <AmpControl count={count} />
+            <PitchControl count={count} />
+          </div>
         </div>
         <div id="op2" className="op">
-          <AmpControl count={count} />
-          <PitchControl count={count} />
+          <div className="label">OP2</div>
+          <div className="controls">
+            <AmpControl count={count} />
+            <PitchControl count={count} />
+          </div>
         </div>
         <div id="op3" className="op">
-          <AmpControl count={count} />
-          <PitchControl count={count} />
+          <div className="label">OP3</div>
+          <div className="controls">
+            <AmpControl count={count} />
+            <PitchControl count={count} />
+          </div>
         </div>
         <div id="op4" className="op">
-          <AmpControl count={count} />
-          <PitchControl count={count} />
+          <div className="label">OP4</div>
+          <div className="controls">
+            <AmpControl count={count} />
+            <PitchControl count={count} />
+          </div>
         </div>
       </div>
     </>

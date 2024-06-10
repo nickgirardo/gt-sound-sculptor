@@ -31,21 +31,24 @@ export const AmpControl = ({ count }: Props): ReactElement => {
 
   return (
     <div className="control amp-control">
-      {values.map((v, ix) => (
-        <div className="control-unit">
-          <Slider
-            key={ix}
-            value={v}
-            setValue={handleValueUpdate(ix)}
-            possibleValues={8}
-            pxPerValue={16}
-          />
-          <input
-            value={v}
-            onChange={(ev) => handleValueUpdate(ix)(Number(ev.target.value))}
-          />
-        </div>
-      ))}
+      <div className="label">Amp</div>
+      <div className="control-units">
+        {values.map((v, ix) => (
+          <div className="control-unit">
+            <Slider
+              key={ix}
+              value={v}
+              setValue={handleValueUpdate(ix)}
+              possibleValues={8}
+              pxPerValue={16}
+            />
+            <input
+              value={v}
+              onChange={(ev) => handleValueUpdate(ix)(Number(ev.target.value))}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

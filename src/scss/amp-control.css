@@ -1,11 +1,23 @@
 .amp-control {
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+
+.amp-control > .label {
+    text-transform: uppercase;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+
+.amp-control > .control-units {
+    display: flex;
+    flex-direction: row;
 
     gap: 2px;
 }
 
-.amp-control .control-unit {
+.amp-control > .control-units .control-unit {
     display: flex;
     flex-direction: column;
 }

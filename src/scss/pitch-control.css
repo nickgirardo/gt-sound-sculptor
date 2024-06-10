@@ -1,11 +1,23 @@
 .pitch-control {
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+
+.pitch-control > .label {
+    text-transform: uppercase;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}
+
+.pitch-control > .control-units {
+    display: flex;
+    flex-direction: row;
 
     gap: 2px;
 }
 
-.pitch-control .control-unit {
+.pitch-control > .control-units .control-unit {
     display: flex;
     flex-direction: column;
 }
