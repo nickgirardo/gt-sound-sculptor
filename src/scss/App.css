@@ -7,21 +7,3 @@
     flex-direction: column;
     gap: 1.5rem;
 }
-
-.op {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.op > .label {
-    writing-mode: vertical-lr;
-    text-orientation: upright;
-}
-
-.op > .controls {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
