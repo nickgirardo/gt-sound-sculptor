@@ -8,6 +8,9 @@ interface Props {
   count: number;
 }
 
+const minValue = 0;
+const maxValue = 8;
+
 export const AmpControl = ({ count }: Props): ReactElement => {
   const [values, setValues] = useState<Array<number>>([]);
 
@@ -18,7 +21,10 @@ export const AmpControl = ({ count }: Props): ReactElement => {
   const handleValueUpdate = (ix: number) => (v: number) => {
     setValues((oldValues) => {
       const ret = [...oldValues];
-      ret[ix] = v;
+      if (!isNaN(v)) {
+        ret[ix] = Math.max(Math.min(v, maxValue), minValue);
+      }
+
       return ret;
     });
   };
@@ -34,7 +40,10 @@ export const AmpControl = ({ count }: Props): ReactElement => {
             possibleValues={8}
             pxPerValue={16}
           />
-          <input value={v} />
+          <input
+            value={v}
+            onChange={(ev) => handleValueUpdate(ix)(Number(ev.target.value))}
+          />
         </div>
       ))}
     </div>
