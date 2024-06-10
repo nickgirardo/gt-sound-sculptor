@@ -37,6 +37,7 @@ export const Slider = ({
       className="slider"
       onMouseMove={mouseHandler}
       onMouseDown={mouseHandler}
+      data-value={value}
     >
       <div
         className="slider-inner-off"

@@ -1,11 +1,21 @@
 .slider {
     width: 32px;
+    user-select: none;
 }
 
 .slider-inner-off {
     background-color: black;
 }
 
-.slider-inner-on {
+.amp-control .slider-inner-on {
     background-color: orange;
+}
+
+.pitch-control .slider-inner-on {
+    background-color: blue;
+}
+
+#op4 .amp-control .slider[data-value="7"] .slider-inner-on,
+#op4 .amp-control .slider[data-value="8"] .slider-inner-on {
+    background-color: red;
 }

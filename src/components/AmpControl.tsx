@@ -12,7 +12,7 @@ export const AmpControl = ({ count }: Props): ReactElement => {
   const [values, setValues] = useState<Array<number>>([]);
 
   useEffect(() => {
-    setValues(range(count).map((v) => v % 8));
+    setValues(range(count).map((_v) => 0));
   }, [count]);
 
   const handleValueUpdate = (ix: number) => (v: number) => {
