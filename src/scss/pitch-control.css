@@ -1,0 +1,15 @@
+.pitch-control {
+    display: flex;
+    flex-direction: row;
+
+    gap: 2px;
+}
+
+.pitch-control .control-unit {
+    display: flex;
+    flex-direction: column;
+}
+
+.pitch-control input {
+    width: 32px;
+}

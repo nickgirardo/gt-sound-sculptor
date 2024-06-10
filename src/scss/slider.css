@@ -1,0 +1,11 @@
+.slider {
+    width: 32px;
+}
+
+.slider-inner-off {
+    background-color: black;
+}
+
+.slider-inner-on {
+    background-color: orange;
+}

@@ -1,0 +1,15 @@
+.amp-control {
+    display: flex;
+    flex-direction: row;
+
+    gap: 2px;
+}
+
+.amp-control .control-unit {
+    display: flex;
+    flex-direction: column;
+}
+
+.amp-control input {
+    width: 32px;
+}
