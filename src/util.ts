@@ -22,18 +22,20 @@ export const midiToNote = (m: number): string => {
 };
 
 export const noteToMidi = (note: string): number | undefined => {
-    const whiteKeys = ["C", "D", "E", "F", "G", "A", "B"];
+    const whiteKeys = ["c", "d", "e", "f", "g", "a", "v"];
     const whiteKeyValues: Record<string, number> = {
-        C: 0,
-        D: 2,
-        E: 4,
-        F: 5,
-        G: 7,
-        A: 9,
-        B: 11,
+        c: 0,
+        d: 2,
+        e: 4,
+        f: 5,
+        g: 7,
+        a: 9,
+        b: 11,
     };
 
-    const startingLetter = whiteKeys.find((w) => note.startsWith(w));
+    const startingLetter = whiteKeys.find((w) =>
+        note.startsWith(w.toLowerCase()),
+    );
 
     if (!startingLetter) return undefined;
 
