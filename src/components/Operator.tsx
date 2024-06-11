@@ -10,9 +10,15 @@ interface Props {
   id: string;
   label: string;
   count: number;
+  ampWarning?: string;
 }
 
-export const Operator = ({ id, label, count }: Props): ReactElement => {
+export const Operator = ({
+  id,
+  label,
+  count,
+  ampWarning,
+}: Props): ReactElement => {
   useEffect(() => {
     setAmpValues((oldValues) => {
       if (oldValues.length < count) {
@@ -47,7 +53,11 @@ export const Operator = ({ id, label, count }: Props): ReactElement => {
     <div id={id} className="op">
       <div className="label">{label}</div>
       <div className="controls">
-        <AmpControl onChange={setAmpValues} values={ampValues} />
+        <AmpControl
+          onChange={setAmpValues}
+          values={ampValues}
+          ampWarning={ampWarning}
+        />
         <PitchControl onChange={setPitchValues} values={pitchValues} />
       </div>
     </div>

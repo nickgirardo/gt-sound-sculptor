@@ -10,14 +10,14 @@
     text-orientation: upright;
 }
 
-.amp-control > .control-units {
+.amp-control .control-units {
     display: flex;
     flex-direction: row;
 
     gap: 2px;
 }
 
-.amp-control > .control-units .control-unit {
+.amp-control .control-units .control-unit {
     display: flex;
     flex-direction: column;
 }
