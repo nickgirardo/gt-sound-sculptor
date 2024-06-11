@@ -10,7 +10,7 @@ interface Props {
 }
 
 const minValue = 0;
-const maxValue = 127;
+const maxValue = 107;
 
 export const PitchControl = ({ values, onChange }: Props): ReactElement => {
   const handleValueUpdate = (ix: number) => (v: number) => {
@@ -36,7 +36,7 @@ export const PitchControl = ({ values, onChange }: Props): ReactElement => {
               key={ix}
               value={v}
               setValue={handleValueUpdate(ix)}
-              possibleValues={128}
+              possibleValues={maxValue + 1}
               pxPerValue={1}
             />
             <input
