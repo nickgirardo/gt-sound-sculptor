@@ -40,6 +40,7 @@ export const AmpControl = ({
                 pxPerValue={16}
               />
               <input
+                type="number"
                 value={v}
                 onChange={(ev) =>
                   handleValueUpdate(ix)(Number(ev.target.value))

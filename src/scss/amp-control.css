@@ -25,3 +25,7 @@
 .amp-control input {
     width: 32px;
 }
+
+.amp-control input[type="number"] {
+    appearance: textfield;
+}
