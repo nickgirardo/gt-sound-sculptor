@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { zeroArray } from "./util";
 
 import { Head } from "./components/Head";
 import { Operator } from "./components/Operator";
@@ -9,6 +11,50 @@ function App() {
   const [sfxLength, setSfxLength] = useState<number>(16);
   const [feedback, setFeedback] = useState<number>(0);
 
+  // A bit lazy here but I don't care lol
+  const [op1Amps, setOp1Amps] = useState<Array<number>>(zeroArray(sfxLength));
+  const [op1Pitches, setOp1Pitches] = useState<Array<number>>(
+    zeroArray(sfxLength),
+  );
+  const [op2Amps, setOp2Amps] = useState<Array<number>>(zeroArray(sfxLength));
+  const [op2Pitches, setOp2Pitches] = useState<Array<number>>(
+    zeroArray(sfxLength),
+  );
+  const [op3Amps, setOp3Amps] = useState<Array<number>>(zeroArray(sfxLength));
+  const [op3Pitches, setOp3Pitches] = useState<Array<number>>(
+    zeroArray(sfxLength),
+  );
+  const [op4Amps, setOp4Amps] = useState<Array<number>>(zeroArray(sfxLength));
+  const [op4Pitches, setOp4Pitches] = useState<Array<number>>(
+    zeroArray(sfxLength),
+  );
+
+  useEffect(() => {
+    const handlers = [
+      setOp1Amps,
+      setOp1Pitches,
+      setOp2Amps,
+      setOp2Pitches,
+      setOp2Amps,
+      setOp2Pitches,
+      setOp2Amps,
+      setOp2Pitches,
+    ];
+
+    for (const handler of handlers) {
+      handler((oldValues) => {
+        if (oldValues.length < sfxLength) {
+          return [
+            ...oldValues,
+            ...new Array(sfxLength - oldValues.length).fill(oldValues.at(-1)),
+          ];
+        } else {
+          return [...oldValues.slice(0, sfxLength)];
+        }
+      });
+    }
+  }, [sfxLength]);
+
   return (
     <>
       <Head
@@ -16,15 +62,40 @@ function App() {
         setSfxLength={setSfxLength}
         feedback={feedback}
         setFeedback={setFeedback}
+        handleExport={() => console.log("oh!")}
       />
       <div className="main-controls">
-        <Operator id="op1" label="op1" count={sfxLength} />
-        <Operator id="op2" label="op2" count={sfxLength} />
-        <Operator id="op3" label="op3" count={sfxLength} />
+        <Operator
+          id="op1"
+          label="op1"
+          ampValues={op1Amps}
+          setAmpValues={setOp1Amps}
+          pitchValues={op1Pitches}
+          setPitchValues={setOp1Pitches}
+        />
+        <Operator
+          id="op2"
+          label="op2"
+          ampValues={op2Amps}
+          setAmpValues={setOp2Amps}
+          pitchValues={op2Pitches}
+          setPitchValues={setOp2Pitches}
+        />
+        <Operator
+          id="op3"
+          label="op3"
+          ampValues={op3Amps}
+          setAmpValues={setOp3Amps}
+          pitchValues={op3Pitches}
+          setPitchValues={setOp3Pitches}
+        />
         <Operator
           id="op4"
           label="op4"
-          count={sfxLength}
+          ampValues={op4Amps}
+          setAmpValues={setOp4Amps}
+          pitchValues={op4Pitches}
+          setPitchValues={setOp4Pitches}
           ampWarning="Warning: Amplitude values greater than 6 on operator 4 may cause unwanted distortion"
         />
       </div>
