@@ -1,9 +1,9 @@
-#root {
-    padding: 2rem;
-}
-
 .main-controls {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    padding: 1rem;
+
+    overflow-y: auto;
 }

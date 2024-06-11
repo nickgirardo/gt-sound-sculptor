@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { Head } from "./components/Head";
 import { Operator } from "./components/Operator";
 
 import "./scss/App.css";
@@ -9,15 +10,7 @@ function App() {
 
   return (
     <>
-      <div>
-        <label htmlFor="frame-count">Length in frames</label>
-        <input
-          id="frame-count"
-          type="number"
-          value={count}
-          onChange={(ev) => setCount(Number(ev.target.value))}
-        />
-      </div>
+      <Head sfxLength={count} setSfxLength={setCount} />
       <div className="main-controls">
         <Operator id="op1" label="op1" count={count} />
         <Operator id="op2" label="op2" count={count} />
