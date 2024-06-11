@@ -31,7 +31,7 @@ export const AmpControl = ({
       <div>
         <div className="control-units">
           {values.map((v, ix) => (
-            <div className="control-unit">
+            <div className="control-unit" key={ix}>
               <Slider
                 key={ix}
                 value={v}
