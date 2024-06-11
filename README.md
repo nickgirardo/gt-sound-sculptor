@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# GameTank Sound Sculptor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sound effect authoring tool for [GameTank](https://gametank.zone) games. This is based off a similar tool by [Clyde Shaffer](https://github.com/clydeshaffer/) but attempts to improve the editing experience and make it easy to input exact values when desired.
 
-Currently, two official plugins are available:
+### Running
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A dev server can be ran locally with `npm run dev`. This use port `5173` by default.
 
-## Expanding the ESLint configuration
+Alternatively, static files can be produced with `npm run build` and served as you'd like.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### File format
 
-- Configure the top-level `parserOptions` property like this:
+The sound effects are packed in a binary format. The first byte represents sound effect length in frames (60fps).  The second byte represents the level of feedback. From this point on, each frame's sample is stored as 8 bytes: one for each operator's amplitude followed by one for each operator's pitch.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Future work
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+There are a number of minor usability improvements I'd like to make but the most impactful feature yet implemented is the ability to preview sound effects. Lacking this makes testing sound effects difficult and especially inhibits experimentation. It should be possible to feature a (possibly stripped down) GameTank emulator within this tool play roms which just play the sound effect and exit. If this is too heavy perhaps a very simplified emulator that just handles sound could be built.
+
+Currently it is not possible to import a previously exported sound effect. This would make it possible to touch up previously made sound effects. Currently if this feature is required, Clyde's sfx tool can be used.
