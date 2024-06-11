@@ -7,6 +7,7 @@ interface Props {
   setSfxLength: React.Dispatch<React.SetStateAction<number>>;
   feedback: number;
   setFeedback: React.Dispatch<React.SetStateAction<number>>;
+  handleExport: () => void;
 }
 
 const minSfxLength = 1;
@@ -20,6 +21,7 @@ export const Head = ({
   setSfxLength,
   feedback,
   setFeedback,
+  handleExport,
 }: Props): ReactElement => {
   const clamp = (n: number, min: number, max: number): number =>
     Math.max(Math.min(n, max), min);
@@ -50,6 +52,7 @@ export const Head = ({
           setFeedback(clamp(Number(ev.target.value), minFeedback, maxFeedback))
         }
       />
+      <button onClick={handleExport}>Export</button>
     </div>
   );
 };

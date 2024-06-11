@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { zeroArray } from "./util";
+import { saveFile, zeroArray } from "./util";
 
 import { Head } from "./components/Head";
 import { Operator } from "./components/Operator";
@@ -55,6 +55,28 @@ function App() {
     }
   }, [sfxLength]);
 
+  const exportFile = () => {
+    const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
+    const view = new Uint8Array(sfxbin);
+
+    view[0] = sfxLength;
+    view[1] = feedback;
+
+    for (var i = 0; i < sfxLength; i++) {
+      // NOTE the offsets here start at +2 because the first two elements are length and feedback
+      view[i * 8 + 2] = op1Amps[i];
+      view[i * 8 + 3] = op2Amps[i];
+      view[i * 8 + 4] = op3Amps[i];
+      view[i * 8 + 5] = op4Amps[i];
+      view[i * 8 + 6] = op1Pitches[i];
+      view[i * 8 + 7] = op2Pitches[i];
+      view[i * 8 + 8] = op3Pitches[i];
+      view[i * 8 + 9] = op4Pitches[i];
+    }
+
+    saveFile(sfxbin, "sfx.bin");
+  };
+
   return (
     <>
       <Head
@@ -62,7 +84,7 @@ function App() {
         setSfxLength={setSfxLength}
         feedback={feedback}
         setFeedback={setFeedback}
-        handleExport={() => console.log("oh!")}
+        handleExport={exportFile}
       />
       <div className="main-controls">
         <Operator

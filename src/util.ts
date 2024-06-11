@@ -1,4 +1,20 @@
-export const range = (n: number): Array<number> => [...new Array(n).keys()];
+export const zeroArray = (n: number): Array<0> => [...new Array(n).fill(0)];
+
+export const saveFile = (buffer: ArrayBuffer, name: string) => {
+    const blob = new Blob([buffer]);
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+
+    document.body.appendChild(a);
+    a.click();
+
+    // Clean up
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+};
 
 export const midiToNote = (m: number): string => {
     const noteNames = [
