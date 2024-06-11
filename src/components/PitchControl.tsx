@@ -1,32 +1,24 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { Slider } from "./Slider";
-import { midiToNote, noteToMidi, range } from "../util";
+import { midiToNote, noteToMidi } from "../util";
 
 import "../scss/pitch-control.css";
 
 interface Props {
-  count: number;
+  onChange: (values: Array<number>) => void;
+  values: Array<number>;
 }
 
 const minValue = 0;
 const maxValue = 127;
 
-export const PitchControl = ({ count }: Props): ReactElement => {
-  const [values, setValues] = useState<Array<number>>([]);
-
-  useEffect(() => {
-    setValues(range(count));
-  }, [count]);
-
+export const PitchControl = ({ values, onChange }: Props): ReactElement => {
   const handleValueUpdate = (ix: number) => (v: number) => {
-    setValues((oldValues) => {
-      const ret = [...oldValues];
-      if (!isNaN(v)) {
-        ret[ix] = Math.max(Math.min(v, maxValue), minValue);
-      }
-
-      return ret;
-    });
+    const ret = [...values];
+    if (!isNaN(v)) {
+      ret[ix] = Math.max(Math.min(v, maxValue), minValue);
+    }
+    onChange(ret);
   };
 
   const tryUpdateNote = (ix: number, note: string) => {

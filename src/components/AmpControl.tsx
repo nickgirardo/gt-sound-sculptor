@@ -1,32 +1,23 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 import { Slider } from "./Slider";
-import { range } from "../util";
 
 import "../scss/amp-control.css";
 
 interface Props {
-  count: number;
+  onChange: (values: Array<number>) => void;
+  values: Array<number>;
 }
 
 const minValue = 0;
 const maxValue = 8;
 
-export const AmpControl = ({ count }: Props): ReactElement => {
-  const [values, setValues] = useState<Array<number>>([]);
-
-  useEffect(() => {
-    setValues(range(count).map((_v) => 0));
-  }, [count]);
-
+export const AmpControl = ({ onChange, values }: Props): ReactElement => {
   const handleValueUpdate = (ix: number) => (v: number) => {
-    setValues((oldValues) => {
-      const ret = [...oldValues];
-      if (!isNaN(v)) {
-        ret[ix] = Math.max(Math.min(v, maxValue), minValue);
-      }
-
-      return ret;
-    });
+    const ret = [...values];
+    if (!isNaN(v)) {
+      ret[ix] = Math.max(Math.min(v, maxValue), minValue);
+    }
+    onChange(ret);
   };
 
   return (
