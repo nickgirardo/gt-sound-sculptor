@@ -5,5 +5,18 @@
     background-color: white;
     border-bottom: 1px solid black;
 
-    padding: 2rem;
+    padding: 2rem 6rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.head input[type="number"] {
+    width: 4rem;
+    margin-left: 0.25rem;
+}
+
+.head input[type="number"]:not(:last-child) {
+    margin-right: 1rem;
 }

@@ -28,31 +28,37 @@ export const Head = ({
 
   return (
     <div className="head">
-      <label htmlFor="frame-count">Length in frames</label>
-      <input
-        id="frame-count"
-        type="number"
-        max={maxSfxLength}
-        min={minSfxLength}
-        value={sfxLength}
-        onChange={(ev) =>
-          setSfxLength(
-            clamp(Number(ev.target.value), minSfxLength, maxSfxLength),
-          )
-        }
-      />
-      <label htmlFor="feedback-amount">Feedback Amount</label>
-      <input
-        id="feedback-amount"
-        type="number"
-        max={maxFeedback}
-        min={minFeedback}
-        value={feedback}
-        onChange={(ev) =>
-          setFeedback(clamp(Number(ev.target.value), minFeedback, maxFeedback))
-        }
-      />
-      <button onClick={handleExport}>Export</button>
+      <div>
+        <label htmlFor="frame-count">Length in frames</label>
+        <input
+          id="frame-count"
+          type="number"
+          max={maxSfxLength}
+          min={minSfxLength}
+          value={sfxLength}
+          onChange={(ev) =>
+            setSfxLength(
+              clamp(Number(ev.target.value), minSfxLength, maxSfxLength),
+            )
+          }
+        />
+        <label htmlFor="feedback-amount">Feedback Amount</label>
+        <input
+          id="feedback-amount"
+          type="number"
+          max={maxFeedback}
+          min={minFeedback}
+          value={feedback}
+          onChange={(ev) =>
+            setFeedback(
+              clamp(Number(ev.target.value), minFeedback, maxFeedback),
+            )
+          }
+        />
+      </div>
+      <div>
+        <button onClick={handleExport}>Export</button>
+      </div>
     </div>
   );
 };
