@@ -35,10 +35,10 @@ function App() {
       setOp1Pitches,
       setOp2Amps,
       setOp2Pitches,
-      setOp2Amps,
-      setOp2Pitches,
-      setOp2Amps,
-      setOp2Pitches,
+      setOp3Amps,
+      setOp3Pitches,
+      setOp4Amps,
+      setOp4Pitches,
     ];
 
     for (const handler of handlers) {
