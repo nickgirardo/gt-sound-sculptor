@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { GTEmulator } from "./GTEmulator";
 
 import "../scss/head.css";
 
@@ -8,6 +9,7 @@ interface Props {
   feedback: number;
   setFeedback: React.Dispatch<React.SetStateAction<number>>;
   handleExport: () => void;
+  handlePreview: () => void;
 }
 
 const minSfxLength = 1;
@@ -22,6 +24,7 @@ export const Head = ({
   feedback,
   setFeedback,
   handleExport,
+  handlePreview,
 }: Props): ReactElement => {
   const clamp = (n: number, min: number, max: number): number =>
     Math.max(Math.min(n, max), min);
@@ -56,7 +59,9 @@ export const Head = ({
           }
         />
       </div>
+      <GTEmulator/>
       <div>
+        <button onClick={handlePreview}>Preview</button>
         <button onClick={handleExport}>Export</button>
       </div>
     </div>

@@ -55,8 +55,7 @@ function App() {
     }
   }, [sfxLength]);
 
-  const exportFile = () => {
-    const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
+  const prepBinary = (sfxbin:ArrayBuffer) => {
     const view = new Uint8Array(sfxbin);
 
     view[0] = sfxLength;
@@ -73,8 +72,23 @@ function App() {
       view[i * 8 + 8] = op3Pitches[i];
       view[i * 8 + 9] = op4Pitches[i];
     }
+    return view;
+  };
 
+  const exportFile = () => {
+    const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
+    prepBinary(sfxbin);
     saveFile(sfxbin, "sfx.bin");
+  };
+
+  const previewSound = () => {
+    const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
+    const arr = prepBinary(sfxbin);
+    const buf = Module._malloc(sfxbin.byteLength);
+    Module.HEAP8.set(arr, buf);
+    Module.EMApplyPatch(buf, sfxbin.byteLength, 32768);
+    Module.ccall('SetButtons', null, ["int"], [0b0000000000010000]);
+    setTimeout(()=>{Module.ccall('SetButtons', null, ["int"], [0]);}, 100);
   };
 
   return (
@@ -85,6 +99,7 @@ function App() {
         feedback={feedback}
         setFeedback={setFeedback}
         handleExport={exportFile}
+        handlePreview={previewSound}
       />
       <div className="main-controls">
         <Operator
