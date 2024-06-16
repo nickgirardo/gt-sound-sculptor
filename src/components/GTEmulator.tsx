@@ -8,7 +8,7 @@ export const GTEmulator = forwardRef(
       <iframe
         ref={ref}
         className="emulator"
-        src="/emulator.html"
+        src="emulator.html"
         width="512"
         height="32"
       />
