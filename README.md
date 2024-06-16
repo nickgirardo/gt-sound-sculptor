@@ -18,6 +18,3 @@ An integrated GameTank emulator is used to facilitate previewing sounds. Due to 
 
 The emulator is built from [this repo](https://github.com/clydeshaffer/GameTankEmulator/tree/sfx_preview). It's build products, `emulator.js` and `emulator.wasm` are checked in to this repo in the `public/` directory. A custom ROM, [sfx.gtr](https://github.com/clydeshaffer/GameTankEmulator/blob/sfx_preview/roms/sfx.gtr), is used to play the sounds. Ideally, building the emulator would take place while building this application so that we wouldn't have to check in build artifacts, but for now this is fine.
 
-### Future work
-
-Currently it is not possible to import a previously exported sound effect. This would make it possible to touch up previously made sound effects. Currently if this feature is required, Clyde's sfx tool can be used.
