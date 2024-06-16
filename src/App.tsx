@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import { saveFile, zeroArray } from "./util";
 
@@ -29,6 +29,8 @@ function App() {
     zeroArray(sfxLength),
   );
 
+  const emuRef = useRef<HTMLIFrameElement>(null);
+
   useEffect(() => {
     const handlers = [
       setOp1Amps,
@@ -55,8 +57,7 @@ function App() {
     }
   }, [sfxLength]);
 
-  const exportFile = () => {
-    const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
+  const prepBinary = (sfxbin: ArrayBuffer): Uint8Array => {
     const view = new Uint8Array(sfxbin);
 
     view[0] = sfxLength;
@@ -74,7 +75,25 @@ function App() {
       view[i * 8 + 9] = op4Pitches[i];
     }
 
+    return view;
+  };
+
+  const exportFile = () => {
+    const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
+
+    prepBinary(sfxbin);
     saveFile(sfxbin, "sfx.bin");
+  };
+
+  const previewSound = () => {
+    const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
+    const view = prepBinary(sfxbin);
+
+    if (emuRef.current && emuRef.current.contentWindow) {
+      // TODO type this properly
+      //@ts-ignore
+      emuRef.current.contentWindow.playSound(sfxbin, view);
+    }
   };
 
   return (
@@ -85,6 +104,8 @@ function App() {
         feedback={feedback}
         setFeedback={setFeedback}
         handleExport={exportFile}
+        handlePreview={previewSound}
+        ref={emuRef}
       />
       <div className="main-controls">
         <Operator

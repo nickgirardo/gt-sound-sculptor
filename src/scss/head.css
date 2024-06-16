@@ -20,3 +20,7 @@
 .head input[type="number"]:not(:last-child) {
     margin-right: 1rem;
 }
+
+.head button + button {
+    margin-left: 0.5rem;
+}
