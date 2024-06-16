@@ -1502,8 +1502,7 @@ var autoResumeAudioContext = (ctx, elements) => {
   }
   ["keydown", "mousedown", "touchstart"].forEach((event) => {
     elements.forEach((element) => {
-      if (element && element.id === "canvas") {
-        console.log("elem", element);
+      if (element) {
         listenOnce(element, event, () => {
           if (ctx.state === "suspended") ctx.resume();
         });
@@ -11086,9 +11085,6 @@ var registerKeyEventCallback = (
   targetThread,
 ) => {
   if (!JSEvents.keyEvent) JSEvents.keyEvent = _malloc(176);
-
-	// if (target === 1 || target === 2) return;
-	console.log('registering key event', eventTypeString, target, callbackfunc);
 
   var keyEventHandlerFunc = (e) => {
     assert(e);
