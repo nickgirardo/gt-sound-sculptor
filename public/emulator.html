@@ -16,6 +16,7 @@
         const buf = Module._malloc(sfxbin.byteLength);
         Module.HEAP8.set(view, buf);
         Module.EMApplyPatch(buf, sfxbin.byteLength, 32768);
+        // Sending an A press starts playing the sound
         Module.ccall("SetButtons", null, ["int"], [0b0000000000010000]);
         setTimeout(() => {
           Module.ccall("SetButtons", null, ["int"], [0]);
