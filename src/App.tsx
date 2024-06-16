@@ -1,11 +1,19 @@
 import { useEffect, useState, useRef } from "react";
+import { debounce } from "ts-debounce";
 
 import { saveFile, zeroArray } from "./util";
+import { encodeSFX } from "./encode";
+import { decodeSFX } from "./decode";
 
 import { Head } from "./components/Head";
 import { Operator } from "./components/Operator";
 
 import "./scss/App.css";
+
+const updateHistory = debounce(
+  (url) => history.replaceState(null, "", url),
+  100,
+);
 
 function App() {
   const [sfxLength, setSfxLength] = useState<number>(16);
@@ -28,6 +36,62 @@ function App() {
   const [op4Pitches, setOp4Pitches] = useState<Array<number>>(
     zeroArray(sfxLength),
   );
+
+  useEffect(() => {
+    const params = new URL(window.location.href).searchParams;
+    const sfxData = params.get("sfx");
+
+    if (sfxData) {
+      const appData = decodeSFX(sfxData);
+
+      if (appData) {
+        setFeedback(appData.feedback);
+        setSfxLength(appData.sfxLength);
+        setOp1Amps(appData.op1Amps);
+        setOp1Pitches(appData.op1Pitches);
+        setOp2Amps(appData.op2Amps);
+        setOp2Pitches(appData.op2Pitches);
+        setOp3Amps(appData.op3Amps);
+        setOp3Pitches(appData.op3Pitches);
+        setOp4Amps(appData.op4Amps);
+        setOp4Pitches(appData.op4Pitches);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+
+    params.set(
+      "sfx",
+      encodeSFX(
+        sfxLength,
+        feedback,
+        op1Amps,
+        op1Pitches,
+        op2Amps,
+        op2Pitches,
+        op3Amps,
+        op3Pitches,
+        op4Amps,
+        op4Pitches,
+      ),
+    );
+
+    updateHistory(url);
+  }, [
+    sfxLength,
+    feedback,
+    op1Amps,
+    op1Pitches,
+    op2Amps,
+    op2Pitches,
+    op3Amps,
+    op3Pitches,
+    op4Amps,
+    op4Pitches,
+  ]);
 
   const emuRef = useRef<HTMLIFrameElement>(null);
 
