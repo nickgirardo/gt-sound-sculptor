@@ -1,5 +1,7 @@
 import React, { ForwardedRef, ReactElement, forwardRef } from "react";
+
 import { GTEmulator } from "./GTEmulator";
+import { readFile } from "../util";
 
 import "../scss/head.css";
 
@@ -9,6 +11,7 @@ interface Props {
   feedback: number;
   setFeedback: React.Dispatch<React.SetStateAction<number>>;
   handleExport: () => void;
+  handleImport: (data: ArrayBuffer) => void;
   handlePreview: () => void;
 }
 
@@ -26,6 +29,7 @@ export const Head = forwardRef(
       feedback,
       setFeedback,
       handleExport,
+      handleImport,
       handlePreview,
     }: Props,
     emuRef: ForwardedRef<HTMLIFrameElement>,
@@ -66,6 +70,7 @@ export const Head = forwardRef(
         <GTEmulator ref={emuRef} />
         <div>
           <button onClick={handlePreview}>Preview</button>
+          <button onClick={() => readFile().then(handleImport)}>Import</button>
           <button onClick={handleExport}>Export</button>
         </div>
       </div>

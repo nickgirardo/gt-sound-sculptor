@@ -16,6 +16,42 @@ export const saveFile = (buffer: ArrayBuffer, name: string) => {
     document.body.removeChild(a);
 };
 
+export const readFile = (): Promise<ArrayBuffer> => {
+    return new Promise((resolve, reject) => {
+        const input = document.createElement("input");
+        input.type = "file";
+        // Only interested in bins
+        input.accept = ".bin";
+
+        input.onchange = () => {
+            if (!input.files || !input.files[0]) {
+                reject(new Error("No file selected"));
+                return;
+            }
+            const file = input.files[0];
+
+            const reader = new FileReader();
+
+            reader.onload = () => {
+                if (!reader.result) {
+                    reject(new Error("Error reading file"));
+                } else {
+                    resolve(reader.result as ArrayBuffer);
+                }
+            };
+
+            reader.onerror = () => {
+                reject(new Error("Error reading file"));
+            };
+
+            reader.readAsArrayBuffer(file);
+        };
+
+        // Trigger file input prompt
+        input.click();
+    });
+};
+
 export const midiToNote = (m: number): string => {
     const noteNames = [
         "C",

@@ -127,7 +127,7 @@ function App() {
     view[0] = sfxLength;
     view[1] = feedback;
 
-    for (var i = 0; i < sfxLength; i++) {
+    for (let i = 0; i < sfxLength; i++) {
       // NOTE the offsets here start at +2 because the first two elements are length and feedback
       view[i * 8 + 2] = op1Amps[i];
       view[i * 8 + 3] = op2Amps[i];
@@ -149,6 +149,42 @@ function App() {
     saveFile(sfxbin, "sfx.bin");
   };
 
+  const importFile = (data: ArrayBuffer) => {
+    const view = new Uint8Array(data);
+    const sfxLength = view[0];
+    const feedback = view[1];
+    const op1Amps = [];
+    const op1Pitches = [];
+    const op2Amps = [];
+    const op2Pitches = [];
+    const op3Amps = [];
+    const op3Pitches = [];
+    const op4Amps = [];
+    const op4Pitches = [];
+
+    for (let i = 0; i < sfxLength; i++) {
+      op1Amps.push(view[i * 8 + 2]);
+      op2Amps.push(view[i * 8 + 3]);
+      op3Amps.push(view[i * 8 + 4]);
+      op4Amps.push(view[i * 8 + 5]);
+      op1Pitches.push(view[i * 8 + 6]);
+      op2Pitches.push(view[i * 8 + 7]);
+      op3Pitches.push(view[i * 8 + 8]);
+      op4Pitches.push(view[i * 8 + 9]);
+    }
+
+    setSfxLength(sfxLength);
+    setFeedback(feedback);
+    setOp1Amps(op1Amps);
+    setOp1Pitches(op1Pitches);
+    setOp2Amps(op2Amps);
+    setOp2Pitches(op2Pitches);
+    setOp3Amps(op3Amps);
+    setOp3Pitches(op3Pitches);
+    setOp4Amps(op4Amps);
+    setOp4Pitches(op4Pitches);
+  };
+
   const previewSound = () => {
     const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
     const view = prepBinary(sfxbin);
@@ -168,6 +204,7 @@ function App() {
         feedback={feedback}
         setFeedback={setFeedback}
         handleExport={exportFile}
+        handleImport={importFile}
         handlePreview={previewSound}
         ref={emuRef}
       />
