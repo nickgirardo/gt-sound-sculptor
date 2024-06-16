@@ -1,20 +1,17 @@
-import { useEffect, useRef, ReactElement } from "react";
+import { ForwardedRef, ReactElement, forwardRef } from "react";
 
 import "../scss/emulator.css";
 
-export const GTEmulator = (): ReactElement => {
-
-    const canvasParentRef = useRef(null);
-
-    useEffect(() => {
-        const canvas = document.getElementById("canvasContainer");
-        if((canvas != null) && (canvasParentRef.current != null)) {
-            canvas.parentElement?.removeChild(canvas);
-            canvasParentRef.current.appendChild(canvas);
-        }
-    });
-
+export const GTEmulator = forwardRef(
+  (_props, ref: ForwardedRef<HTMLIFrameElement>): ReactElement => {
     return (
-        <div ref={canvasParentRef}> </div>
+      <iframe
+        ref={ref}
+        className="emulator"
+        src="/emulator.html"
+        width="512"
+        height="32"
+      />
     );
-};
+  },
+);
