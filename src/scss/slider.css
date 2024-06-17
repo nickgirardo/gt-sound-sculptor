@@ -5,18 +5,16 @@
 
 .slider-inner-off {
     background-color: var(--color-slider-off);
-    /* background-color: black; */
 }
 
-.amp-control .slider-inner-on {
+.slider.amp .slider-inner-on {
     background-color: var(--color-amp-slider-on);
 }
 
-.pitch-control .slider-inner-on {
+.slider.pitch .slider-inner-on {
     background-color: var(--color-pitch-slider-on);
 }
 
-#op4 .amp-control .slider[data-value="7"] .slider-inner-on,
-#op4 .amp-control .slider[data-value="8"] .slider-inner-on {
+.slider.warning .slider-inner-on {
     background-color: var(--color-slider-warning);
 }

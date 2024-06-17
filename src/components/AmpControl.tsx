@@ -6,7 +6,7 @@ import "../scss/amp-control.css";
 interface Props {
   onChange: (values: Array<number>) => void;
   values: Array<number>;
-  ampWarning?: string;
+  highAmpWarning?: number;
 }
 
 const minValue = 0;
@@ -15,7 +15,7 @@ const maxValue = 8;
 export const AmpControl = ({
   onChange,
   values,
-  ampWarning,
+  highAmpWarning,
 }: Props): ReactElement => {
   const handleValueUpdate = (ix: number) => (v: number) => {
     const ret = [...values];
@@ -38,6 +38,8 @@ export const AmpControl = ({
                 setValue={handleValueUpdate(ix)}
                 possibleValues={8}
                 pxPerValue={16}
+                warning={highAmpWarning !== undefined && v >= highAmpWarning}
+                className="amp"
               />
               <input
                 type="number"
@@ -49,7 +51,6 @@ export const AmpControl = ({
             </div>
           ))}
         </div>
-        {ampWarning && values.some((v) => v > 6) && <div>{ampWarning}</div>}
       </div>
     </div>
   );

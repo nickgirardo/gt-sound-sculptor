@@ -240,7 +240,7 @@ function App() {
           setAmpValues={setOp4Amps}
           pitchValues={op4Pitches}
           setPitchValues={setOp4Pitches}
-          ampWarning="Warning: Amplitude values greater than 6 on operator 4 may cause unwanted distortion"
+          highAmpWarning={7}
         />
       </div>
     </>

@@ -38,6 +38,7 @@ export const PitchControl = ({ values, onChange }: Props): ReactElement => {
               setValue={handleValueUpdate(ix)}
               possibleValues={maxValue + 1}
               pxPerValue={1}
+              className="pitch"
             />
             <input
               type="number"

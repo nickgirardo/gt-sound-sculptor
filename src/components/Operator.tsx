@@ -12,7 +12,7 @@ interface Props {
   setAmpValues: React.Dispatch<React.SetStateAction<Array<number>>>;
   pitchValues: Array<number>;
   setPitchValues: React.Dispatch<React.SetStateAction<Array<number>>>;
-  ampWarning?: string;
+  highAmpWarning?: number;
 }
 
 export const Operator = ({
@@ -22,7 +22,7 @@ export const Operator = ({
   setAmpValues,
   pitchValues,
   setPitchValues,
-  ampWarning,
+  highAmpWarning,
 }: Props): ReactElement => {
   return (
     <div id={id} className="op">
@@ -31,7 +31,7 @@ export const Operator = ({
         <AmpControl
           onChange={setAmpValues}
           values={ampValues}
-          ampWarning={ampWarning}
+          highAmpWarning={highAmpWarning}
         />
         <PitchControl onChange={setPitchValues} values={pitchValues} />
       </div>

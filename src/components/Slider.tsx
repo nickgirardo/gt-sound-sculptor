@@ -7,6 +7,8 @@ interface Props {
   setValue: (value: number) => void;
   possibleValues: number;
   pxPerValue: number;
+  warning?: boolean;
+  className?: string;
 }
 
 export const Slider = ({
@@ -14,6 +16,8 @@ export const Slider = ({
   setValue,
   possibleValues,
   pxPerValue,
+  warning,
+  className,
 }: Props): ReactElement => {
   const totalHeight = pxPerValue * possibleValues;
 
@@ -22,7 +26,7 @@ export const Slider = ({
 
     let slider = ev.target! as HTMLDivElement;
 
-    while (slider.className != "slider" || !slider)
+    while (!slider.classList.contains("slider") || !slider)
       slider = slider.parentElement! as HTMLDivElement;
 
     if (!slider) throw new Error("Unable to find slider :(");
@@ -32,9 +36,15 @@ export const Slider = ({
     setValue(Math.round((totalHeight - fillValue) / pxPerValue));
   };
 
+  // NOTE just hacking this in here instead of using a library like "classnames"
+  // because this is the only place in the application I need to do this
+  const classes = ["slider", className, warning && "warning"]
+    .filter((t) => t)
+    .join(" ");
+
   return (
     <div
-      className="slider"
+      className={classes}
       onMouseMove={mouseHandler}
       onMouseDown={mouseHandler}
       data-value={value}
