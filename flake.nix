@@ -21,7 +21,7 @@
         inherit system;
         pkgs = import nixpkgs { inherit system; };
       });
-    in {
+    in rec {
       packages = forAllSystems ({ pkgs, ... }: rec {
         default = gt-sound-sculptor;
         gt-sound-sculptor = pkgs.buildNpmPackage {
@@ -34,5 +34,24 @@
           '';
         };
       });
+      apps = forAllSystems ({ pkgs, system, ... }:
+        let
+        serv = pkgs.writeShellApplication {
+          name = "serve";
+          runtimeInputs = [ pkgs.caddy ];
+          text = ''
+            # Takes port as first argument, defaulting to 8080
+            PORT="''${1:-8080}"
+            caddy file-server --listen :"$PORT" --root ${packages.${system}.gt-sound-sculptor.outPath}/dist
+          '';
+        };
+        in rec {
+            serve = {
+              type = "app";
+              program = "${serv}/bin/serve";
+            };
+            default = serve;
+          }
+      );
     };
 }
