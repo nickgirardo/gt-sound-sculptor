@@ -26,6 +26,14 @@
     width: 32px;
 }
 
+/* Hide the spin buttons on Chrome */
+.pitch-control input[type="number"]::-webkit-outer-spin-button,
+.pitch-control input[type="number"]::-webkit-inner-spin-button
+{
+    display: none;
+}
+
+/* Hide the spin buttons on Firefox */
 .pitch-control input[type="number"] {
     appearance: textfield;
 }
