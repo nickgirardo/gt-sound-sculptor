@@ -7,7 +7,7 @@ import "../scss/head.css";
 
 interface Props {
   sfxLength: number;
-  setSfxLength: React.Dispatch<React.SetStateAction<number>>;
+  setSfxLength: (length: number) => void;
   feedback: number;
   setFeedback: React.Dispatch<React.SetStateAction<number>>;
   handleExport: () => void;

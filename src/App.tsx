@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Dispatch, SetStateAction } from "react";
 import { debounce } from "ts-debounce";
 
 import { saveFile, zeroArray } from "./util";
@@ -95,31 +95,6 @@ function App() {
 
   const emuRef = useRef<HTMLIFrameElement>(null);
 
-  useEffect(() => {
-    const handlers = [
-      setOp1Amps,
-      setOp1Pitches,
-      setOp2Amps,
-      setOp2Pitches,
-      setOp3Amps,
-      setOp3Pitches,
-      setOp4Amps,
-      setOp4Pitches,
-    ];
-
-    for (const handler of handlers) {
-      handler((oldValues) => {
-        if (oldValues.length < sfxLength) {
-          return [
-            ...oldValues,
-            ...new Array(sfxLength - oldValues.length).fill(oldValues.at(-1)),
-          ];
-        } else {
-          return [...oldValues.slice(0, sfxLength)];
-        }
-      });
-    }
-  }, [sfxLength]);
 
   const prepBinary = (sfxbin: ArrayBuffer): Uint8Array => {
     const view = new Uint8Array(sfxbin);
@@ -196,11 +171,53 @@ function App() {
     }
   };
 
+  // A simple wrapper around setSfxLength
+  // This handles updating all of the other values (e.g. op1Amps) to have the correct length
+  // In general this should be preferred over manually using `setSfxLength` unless updating multiple
+  // fields at the same time as the sfxLength (e.g. loading from query param on initial page load)
+  const updateSfxLength = (length: number) => {
+    setSfxLength(length);
+
+    const updaters: Array<[Array<number>, Dispatch<SetStateAction<Array<number>>>]> = [
+      [op1Amps, setOp1Amps],
+      [op1Pitches, setOp1Pitches],
+      [op2Amps, setOp2Amps],
+      [op2Pitches, setOp2Pitches],
+      [op3Amps, setOp3Amps],
+      [op3Pitches, setOp3Pitches],
+      [op4Amps, setOp4Amps],
+      [op4Pitches, setOp4Pitches],
+    ];
+
+    // No change in sfxLength, no work needs to be done
+    if (length === sfxLength)
+      return;
+
+    // Extend sfx
+    // We take the last set value and use it for all new values
+    if (length > sfxLength) {
+      for (const [value, updateFn] of updaters) {
+        updateFn([
+          ...value,
+          ...new Array(length - value.length).fill(value.at(-1)),
+        ]);
+      }
+    }
+
+    // Shorten sfx
+    // Just truncate the values
+    if (length < sfxLength) {
+      for (const [value, updateFn] of updaters) {
+        updateFn([...value.slice(0, length)]);
+      }
+    }
+  }
+
   return (
     <>
       <Head
         sfxLength={sfxLength}
-        setSfxLength={setSfxLength}
+        setSfxLength={updateSfxLength}
         feedback={feedback}
         setFeedback={setFeedback}
         handleExport={exportFile}
