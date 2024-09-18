@@ -6,6 +6,7 @@ import "../scss/amp-control.css";
 interface Props {
   onChange: (values: Array<number>) => void;
   values: Array<number>;
+  ineffectiveAmps: Array<boolean>;
   highAmpWarning?: number;
 }
 
@@ -15,6 +16,7 @@ const maxValue = 8;
 export const AmpControl = ({
   onChange,
   values,
+  ineffectiveAmps,
   highAmpWarning,
 }: Props): ReactElement => {
   const handleValueUpdate = (ix: number) => (v: number) => {
@@ -39,6 +41,7 @@ export const AmpControl = ({
                 possibleValues={8}
                 pxPerValue={16}
                 warning={highAmpWarning !== undefined && v >= highAmpWarning}
+                isIneffective={ineffectiveAmps[ix]}
                 className="amp"
               />
               <input

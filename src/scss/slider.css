@@ -18,3 +18,7 @@
 .slider.warning .slider-inner-on {
     background-color: var(--color-slider-warning);
 }
+
+.slider.ineffective .slider-inner-on {
+    background-color: var(--color-slider-ineffective);
+}

@@ -11,6 +11,8 @@ interface Props {
   ampValues: Array<number>;
   setAmpValues: React.Dispatch<React.SetStateAction<Array<number>>>;
   pitchValues: Array<number>;
+  ineffectiveAmps: Array<boolean>;
+  ineffectivePitches: Array<boolean>;
   setPitchValues: React.Dispatch<React.SetStateAction<Array<number>>>;
   highAmpWarning?: number;
 }
@@ -22,6 +24,8 @@ export const Operator = ({
   setAmpValues,
   pitchValues,
   setPitchValues,
+  ineffectiveAmps,
+  ineffectivePitches,
   highAmpWarning,
 }: Props): ReactElement => {
   return (
@@ -31,9 +35,14 @@ export const Operator = ({
         <AmpControl
           onChange={setAmpValues}
           values={ampValues}
+          ineffectiveAmps={ineffectiveAmps}
           highAmpWarning={highAmpWarning}
         />
-        <PitchControl onChange={setPitchValues} values={pitchValues} />
+        <PitchControl
+          onChange={setPitchValues}
+           values={pitchValues}
+           ineffectivePitches={ineffectivePitches}
+        />
       </div>
     </div>
   );

@@ -213,6 +213,16 @@ function App() {
     }
   }
 
+  // Which controls don't contribute to the final sound? We'll gray these out
+  const ineffectiveOp4Amps = new Array(sfxLength).fill(false);
+  const ineffectiveOp4Pitches = op4Amps.map(p => p === 0);
+  const ineffectiveOp3Amps = ineffectiveOp4Pitches;
+  const ineffectiveOp3Pitches = op3Amps.map((p, ix) => p === 0 || ineffectiveOp4Pitches[ix]);
+  const ineffectiveOp2Amps = ineffectiveOp3Pitches;
+  const ineffectiveOp2Pitches = op2Amps.map((p, ix) => p === 0 || ineffectiveOp3Pitches[ix]);
+  const ineffectiveOp1Amps = ineffectiveOp2Pitches;
+  const ineffectiveOp1Pitches = op1Amps.map((p, ix) => p === 0 || ineffectiveOp2Pitches[ix]);
+
   return (
     <>
       <Head
@@ -232,6 +242,8 @@ function App() {
           ampValues={op1Amps}
           setAmpValues={setOp1Amps}
           pitchValues={op1Pitches}
+          ineffectivePitches={ineffectiveOp1Pitches}
+          ineffectiveAmps={ineffectiveOp1Amps}
           setPitchValues={setOp1Pitches}
         />
         <Operator
@@ -240,6 +252,8 @@ function App() {
           ampValues={op2Amps}
           setAmpValues={setOp2Amps}
           pitchValues={op2Pitches}
+          ineffectivePitches={ineffectiveOp2Pitches}
+          ineffectiveAmps={ineffectiveOp2Amps}
           setPitchValues={setOp2Pitches}
         />
         <Operator
@@ -248,6 +262,8 @@ function App() {
           ampValues={op3Amps}
           setAmpValues={setOp3Amps}
           pitchValues={op3Pitches}
+          ineffectivePitches={ineffectiveOp3Pitches}
+          ineffectiveAmps={ineffectiveOp3Amps}
           setPitchValues={setOp3Pitches}
         />
         <Operator
@@ -256,6 +272,8 @@ function App() {
           ampValues={op4Amps}
           setAmpValues={setOp4Amps}
           pitchValues={op4Pitches}
+          ineffectivePitches={ineffectiveOp4Pitches}
+          ineffectiveAmps={ineffectiveOp4Amps}
           setPitchValues={setOp4Pitches}
           highAmpWarning={7}
         />

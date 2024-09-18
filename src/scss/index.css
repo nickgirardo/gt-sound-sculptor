@@ -6,6 +6,7 @@
   --color-amp-slider-on: #ffc04e;
   --color-pitch-slider-on: #ac45db;
   --color-slider-warning: #ff4646;
+  --color-slider-ineffective: #7a7676;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -30,6 +31,7 @@
     --color-amp-slider-on: orange;
     --color-pitch-slider-on: #a100ea;
     --color-slider-warning: red;
+    --color-slider-ineffective: #696565;
   }
 
   a:hover {
