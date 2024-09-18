@@ -33,7 +33,7 @@ export const Slider = ({
 
     if (!slider) throw new Error("Unable to find slider :(");
 
-    const fillValue = ev.pageY - slider.offsetTop;
+    const fillValue = ev.clientY - slider.getBoundingClientRect().top;
 
     setValue(Math.round((totalHeight - fillValue) / pxPerValue));
   };

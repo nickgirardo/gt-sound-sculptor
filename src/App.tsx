@@ -223,6 +223,24 @@ function App() {
   const ineffectiveOp1Amps = ineffectiveOp2Pitches;
   const ineffectiveOp1Pitches = op1Amps.map((p, ix) => p === 0 || ineffectiveOp2Pitches[ix]);
 
+  const opsList = [{
+    name: 'op1',
+    amps: op1Amps,
+    pitches: op1Pitches
+  },{
+    name: 'op2',
+    amps: op2Amps,
+    pitches: op2Pitches
+  },{
+    name: 'op3',
+    amps: op3Amps,
+    pitches: op3Pitches
+  },{
+    name: 'op4',
+    amps: op4Amps,
+    pitches: op4Pitches
+  }];
+
   return (
     <>
       <Head
@@ -242,9 +260,10 @@ function App() {
           ampValues={op1Amps}
           setAmpValues={setOp1Amps}
           pitchValues={op1Pitches}
+          setPitchValues={setOp1Pitches}
           ineffectivePitches={ineffectiveOp1Pitches}
           ineffectiveAmps={ineffectiveOp1Amps}
-          setPitchValues={setOp1Pitches}
+          otherOps={opsList.filter(o => o.name !== 'op1')}
         />
         <Operator
           id="op2"
@@ -252,9 +271,10 @@ function App() {
           ampValues={op2Amps}
           setAmpValues={setOp2Amps}
           pitchValues={op2Pitches}
+          setPitchValues={setOp2Pitches}
           ineffectivePitches={ineffectiveOp2Pitches}
           ineffectiveAmps={ineffectiveOp2Amps}
-          setPitchValues={setOp2Pitches}
+          otherOps={opsList.filter(o => o.name !== 'op2')}
         />
         <Operator
           id="op3"
@@ -262,9 +282,10 @@ function App() {
           ampValues={op3Amps}
           setAmpValues={setOp3Amps}
           pitchValues={op3Pitches}
+          setPitchValues={setOp3Pitches}
           ineffectivePitches={ineffectiveOp3Pitches}
           ineffectiveAmps={ineffectiveOp3Amps}
-          setPitchValues={setOp3Pitches}
+          otherOps={opsList.filter(o => o.name !== 'op3')}
         />
         <Operator
           id="op4"
@@ -272,9 +293,10 @@ function App() {
           ampValues={op4Amps}
           setAmpValues={setOp4Amps}
           pitchValues={op4Pitches}
+          setPitchValues={setOp4Pitches}
           ineffectivePitches={ineffectiveOp4Pitches}
           ineffectiveAmps={ineffectiveOp4Amps}
-          setPitchValues={setOp4Pitches}
+          otherOps={opsList.filter(o => o.name !== 'op4')}
           highAmpWarning={7}
         />
       </div>
