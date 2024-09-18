@@ -7,12 +7,13 @@ import "../scss/pitch-control.css";
 interface Props {
   onChange: (values: Array<number>) => void;
   values: Array<number>;
+  ineffectivePitches: Array<boolean>;
 }
 
 const minValue = 0;
 const maxValue = 107;
 
-export const PitchControl = ({ values, onChange }: Props): ReactElement => {
+export const PitchControl = ({ values, onChange, ineffectivePitches }: Props): ReactElement => {
   const handleValueUpdate = (ix: number) => (v: number) => {
     const ret = [...values];
     if (!isNaN(v)) {
@@ -38,6 +39,7 @@ export const PitchControl = ({ values, onChange }: Props): ReactElement => {
               setValue={handleValueUpdate(ix)}
               possibleValues={maxValue + 1}
               pxPerValue={1}
+              isIneffective={ineffectivePitches[ix]}
               className="pitch"
             />
             <input

@@ -7,6 +7,7 @@ interface Props {
   setValue: (value: number) => void;
   possibleValues: number;
   pxPerValue: number;
+  isIneffective: boolean;
   warning?: boolean;
   className?: string;
 }
@@ -16,6 +17,7 @@ export const Slider = ({
   setValue,
   possibleValues,
   pxPerValue,
+  isIneffective,
   warning,
   className,
 }: Props): ReactElement => {
@@ -38,7 +40,7 @@ export const Slider = ({
 
   // NOTE just hacking this in here instead of using a library like "classnames"
   // because this is the only place in the application I need to do this
-  const classes = ["slider", className, warning && "warning"]
+  const classes = ["slider", className, warning && "warning", isIneffective && "ineffective"]
     .filter((t) => t)
     .join(" ");
 
