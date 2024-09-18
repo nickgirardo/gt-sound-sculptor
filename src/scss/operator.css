@@ -18,6 +18,8 @@
 
     background-color: var(--color-bg);
     transform: translateX(-10rem);
+
+    transition: transform 60ms ease-in-out;
 }
 
 .op > .extra-options {
