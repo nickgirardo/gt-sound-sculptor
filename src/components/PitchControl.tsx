@@ -22,6 +22,14 @@ export const PitchControl = ({ values, onChange, ineffectivePitches }: Props): R
     onChange(ret);
   };
 
+  const transposeOctaveUp = () => {
+    onChange(values.map(v => Math.min(v + 12, maxValue)));
+  }
+
+  const transposeOctaveDown = () => {
+    onChange(values.map(v => Math.max(v - 12, minValue)));
+  }
+
   const tryUpdateNote = (ix: number, note: string) => {
     const parsedNote = noteToMidi(note);
     if (parsedNote !== undefined) handleValueUpdate(ix)(parsedNote);
@@ -29,7 +37,11 @@ export const PitchControl = ({ values, onChange, ineffectivePitches }: Props): R
 
   return (
     <div className="control pitch-control">
-      <div className="label">Pitch</div>
+      <div className="leftmatter">
+        <button onClick={transposeOctaveUp}>+8ve</button>
+        <div className="label">Pitch</div>
+        <button onClick={transposeOctaveDown}>-8ve</button>
+      </div>
       <div className="control-units">
         {values.map((v, ix) => (
           <div className="control-unit" key={ix}>

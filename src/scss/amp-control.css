@@ -4,7 +4,15 @@
     align-items: center;
 }
 
-.amp-control > .label {
+.amp-control > .leftmatter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 3rem;
+}
+
+.amp-control > .leftmatter > .label {
     text-transform: uppercase;
     writing-mode: vertical-lr;
     text-orientation: upright;

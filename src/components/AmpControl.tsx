@@ -29,7 +29,9 @@ export const AmpControl = ({
 
   return (
     <div className="control amp-control">
-      <div className="label">Amp</div>
+      <div className="leftmatter">
+        <div className="label">Amp</div>
+      </div>
       <div>
         <div className="control-units">
           {values.map((v, ix) => (

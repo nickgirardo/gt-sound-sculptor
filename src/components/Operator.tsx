@@ -40,8 +40,8 @@ export const Operator = ({
         />
         <PitchControl
           onChange={setPitchValues}
-           values={pitchValues}
-           ineffectivePitches={ineffectivePitches}
+          values={pitchValues}
+          ineffectivePitches={ineffectivePitches}
         />
       </div>
     </div>
