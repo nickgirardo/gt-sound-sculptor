@@ -121,7 +121,7 @@ function App() {
     const sfxbin = new ArrayBuffer(sfxLength * 8 + 2);
 
     prepBinary(sfxbin);
-    saveFile(sfxbin, "sfx.bin");
+    saveFile(sfxbin, "sound.sfx");
   };
 
   const importFile = (data: ArrayBuffer) => {
